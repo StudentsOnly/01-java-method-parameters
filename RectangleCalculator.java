@@ -6,16 +6,15 @@ public class RectangleCalculator {
         int width, length, area, perimeter;
 
         while (true) {
-            Scanner s = new Scanner(System.in);
             do {
                 System.out.println("Enter the length of the rectangle: ");
-                String input = handleStringInput(s);
+                String input = handleStringInput();
                 length = handleIntParsing(input);
             } while (length <= 0);
 
             do {
                 System.out.println("Enter the width of the rectangle: ");
-                String input = handleStringInput(s);
+                String input = handleStringInput();
                 width = handleIntParsing(input);
             } while (width <= 0);
 
@@ -25,8 +24,6 @@ public class RectangleCalculator {
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
-            } finally {
-                s.close();
             }
         }
         System.out.println("Area: " + area);
@@ -46,8 +43,8 @@ public class RectangleCalculator {
         return (length + width) * 2;
     }
 
-    private static String handleStringInput(Scanner s) {
-        try {
+    private static String handleStringInput() {
+        try (Scanner s = new Scanner(System.in)) {
             return s.nextLine();
         } catch (NoSuchElementException | IllegalStateException e) {
             System.out.println("Error in scanner");
